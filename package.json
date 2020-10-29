@@ -6,7 +6,7 @@
   "repository": "https://github.com/VTTAssets/vtta.io.git",
   "scripts": {
     "syncDB": "node src/index.js",
-    "syncS3": "s3cmd sync --dry-run --recursive content/ s3://vtta-io-s3 --acl-public",
+    "syncS3": "s3cmd sync --recursive content/ s3://vtta-io-s3 --acl-public",
     "start": "node src/index.js && s3cmd sync --delete-removed --recursive content/ s3://vtta-io-s3 --acl-public"
   },
   "author": "Sebastian Will <vttassets@gmail.com>",

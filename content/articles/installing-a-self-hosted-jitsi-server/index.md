@@ -1,9 +1,11 @@
 ---
-title: Installing a self-hosted Jitsi Server to use with Foundry VTT
+title: Installing a self-hosted Jitsi Server for Foundry VTT
 intro:
-    Community member Luvolondon is currently creating a module that allows you to use Jitsi, an open source video conferencing system as a replacement for the included WebRTC Audio/Video system.
+  Community member Luvolondon is currently creating a module that allows you to use Jitsi, an open source video conferencing system as a replacement for the included WebRTC Audio/Video system. Let's install our own Jitsi server!
 
-    This guide will go through the installation and setup to self-host it - alongside Foundry VTT or on a separate machine.
+  This is **awesome!**
+
+  I don't know for sure!
 author:
   name: Sebastian
   email: vttassets@gmail.com
@@ -11,6 +13,7 @@ author:
 tags:
   - how-to
 ---
+
 <div class="ui segment">
 <p>This guide is using <a href="https://m.do.co/c/c5bc45b83ee0">Digital Ocean</a> as a low-cost, but still viable webhoster of choice. I am used it for every web project I did in the last couple of years and I love the easiness of creating and disposing new Droplets, as they call their Virtual Machines.</p>
 <p>If you are already using a different hoster, the described procedure should be easy enough for you to adjust.
@@ -21,7 +24,7 @@ tags:
 
 Jitsi installs fine on a very small droplet, I am using the smallest one that suits my needs perfectly. This might depend on the size of your group, but you can increase the droplet size later on very easily in case you really need a better performing CPU or more RAM, down-sizing is (I think) not that simple.
 
-The [most tiny droplet](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb) is still good enough for one role-playing group of friends. You could choose a number bigger to run Foundry alongside it, but I think even both software product will run fine on the smallest droplet if your average group size does not exceed four or five people - tell me with how many users you are running that combo and I will adjust that with a recommendation based on real-world usage.
+The [most tiny droplet](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb) is still good enough for one role-playing group of friends. You could choose a number bigger to run Foundry alongside it, but I think even both software product will run fine on the smallest droplet if your average group size does not exceed four or five people - tell me with how many users you are running that combo and I will adjust that with a recommendation based on real-world usage. 
 
 All you need to do is to choose a datacenter region that is located near you in order to reduce latency and therefore audio/video quality later on. I am using Frankfurt, but you will probably use another datacenter location.
 
@@ -245,3 +248,82 @@ service nginx restart
 ```
 
 Jitsi is installed, but needs a little more configuration: Everyone can use your new Jitsi server for their own conferences, and that is something you might now want. So let's enable authentication in the last step.
+
+## Enable Authentication within Jitsi
+
+> Having a publicly available conference software is something that is greatly sought after in these days. Still, you might want to secure access to your family and closest friends. The great thing about Jitsi is that only the one creating the conference needs to be a registered user, and whenever a conference is created, everyone can connect to the publicly available URL - it is really a great software to use to keep in touch with your loved ones.
+
+The following steps are greatly reduced in complexity by the formidable scripting of  [Andrea Giacobino@noandrea](https://dev.to/noandrea) from his article [Self-hosted Jitsi server with authentication](https://dev.to/noandrea/self-hosted-jitsi-server-with-authentication-ie7). Please give him some love while you are there!
+
+First, we will need to create a bash variable with our domain name we are using for Jitsi. Andrea uses that variable in the following three scripts, making the whole process dead simple. I am using voice.vttassets.com, please replace that with your own domain name you chose earlier:
+
+```terminal
+export JITSI_DOMAIN="voice.vttassets.com"
+```
+
+Then run the three scripts to change the files
+
+```terminal
+curl  https://gist.githubusercontent.com/noandrea/5ff6b212273af95103996c0e71f0cdf2/raw/22965f246c59bc149245554b6079db97794425bd/apeunit.test-config.js -s | \
+sed  "s/apeunit.test/$JITSI_DOMAIN/g" \
+> /etc/jitsi/meet/$JITSI_DOMAIN-config.js
+curl https://gist.githubusercontent.com/noandrea/5ff6b212273af95103996c0e71f0cdf2/raw/bb3e8a65582882dd3aeb4624d2522b244b949855/apeunit.test.cfg.lua -s | \
+sed  "s/apeunit.test/$JITSI_DOMAIN/g" | \
+sed  "s/JICOFO_SECRET/$(grep -e '^JICOFO_SECRET=.*' /etc/jitsi/jicofo/config | cut -d '=' -f2)/g" | \
+sed  "s/TURN_SECRET/$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-8})/g" \
+> /etc/prosody/conf.avail/$JITSI_DOMAIN.cfg.lua
+echo "org.jitsi.jicofo.auth.URL=XMPP:$JITSI_DOMAIN" \
+>> /etc/jitsi/jicofo/sip-communicator.properties
+```
+
+Lastly, we do create the first user (of many?) that can use our new Jitsi server as a conference host:
+
+```terminal
+prosodyctl register [username] $JITSI_DOMAIN [password]
+```
+
+for example:
+
+```terminal
+prosodyctl register solfolango $JITSI_DOMAIN ThisIsMyPasswordGoAway
+```
+
+**Remember**: You created the variable $JITSI_DOMAIN before manually. If you close your ssh session and relog into your server, this variable will not exist any longer. So in order to create other users in the future, you should just type the domain name instead:
+
+```terminal
+prosodyctl register MySecondUser voice.vttassets ISaidGoAway
+```
+
+The only thing left to do with the Jitsi server is to restart the three components to activate the changes to their config file Andrea's script made for us:
+
+```terminal
+service jicofo restart
+service jitsi-videobridge2 restart
+service prosody restart
+```
+
+## Installing the Foundry module
+
+**Please note:** The module is still in development and audio/video might not be perfect. It is currently in a proof-of-concept-state with an active developer, to take the availablility within Foundry with patience and goodwill.
+
+### Download and Installation
+You can find the module on [Luvolondon's Github Repository](https://github.com/luvolondon/fvtt-module-jitsiwebrtc). Check the readme for information about the current state of development and every configuration detail that might be not known currently and which is therefore not part of this description. You will find the manifest link in the readme, too, so copy that and install this module like any other module, too.
+
+### Configuration
+After you enabled the Jitsi WebRTC client in Game Settings / Manage Modules all there is to do is to configure the Custom server in Game Setttings / Configure Audio/Video (yes, it is using the regular configuration dialog, it is not in the Game Settings / Configure Settings / Module Settings you might have expected.
+
+Configure your Custom Server: Use the user you created before, the password has been blurred because it's **TotallySecret**
+
+![Configure your Custom Server: Use the user you created before, the password has been blurred because it's TotallySecret](img/module-configure-servers.png)
+
+Select
+
+* **Choose Signalling Server:** Custom Server
+* **Signalling Server URL:** [YourDomain]
+* **Signalling Server Username:** [yourUser]@[YourDomain]
+* **Signalling Server Password:** The password you chose when creating your first user
+* **Relay Server Configuration:** Provided by Signalling Server
+
+Finally, when you go to the "General" tab, you can enable Audio/Video and...
+
+![It's working!: This community is amazing (am I a meme yet?)](img/blown-away.gif)

@@ -41,7 +41,7 @@ module.exports = (contentType, slug, filename) => {
   // style all images for Semantic UI and extract relative src for upload to S3
   renderer.image = function (href, title, text) {
     if (!(href.indexOf("://") > 0 || href.indexOf("//") === 0)) {
-      const newHref = `https://${process.env.SPACES_PREFIX}/${contentType}/${slug}/${href}`;
+      const newHref = `${process.env.SPACES_PREFIX}/${contentType}/${slug}/${href}`;
       const source = path.dirname(filename) + "/" + href;
       uploads.push({
         source: source,
@@ -89,7 +89,7 @@ module.exports = (contentType, slug, filename) => {
   content.meta.type = contentType;
 
   // url for this content
-  content.meta.link = `${contentType}/${slug}`;
+  content.meta.link = `/${contentType}/${slug}`;
 
   // render the intro as markdown, too
   const intro = content.meta.intro.split("\n").join("\n\n");

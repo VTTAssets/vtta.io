@@ -15,9 +15,7 @@ const contentTypes = getDirectories(path.resolve(process.env.CONTENT_ROOT)).map(
 );
 
 const processContentTypes = (contentTypes) => {
-  console.log("ContentTypes: ");
-  console.log(contentTypes);
-
+  console.log("ContentTypes: " + contentTypes.map(contentType => contentType.type).join(', '));
   let results = [];
 
   contentTypes.forEach((contentType) => {
@@ -48,6 +46,7 @@ mongoose
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(async () => {
     console.log("Connected to MongoDB");
