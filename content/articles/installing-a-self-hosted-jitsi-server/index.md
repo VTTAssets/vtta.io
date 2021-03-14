@@ -15,7 +15,7 @@ tags:
 ---
 
 <div class="ui segment">
-<p>This guide is using <a href="https://m.do.co/c/c5bc45b83ee0">Digital Ocean</a> as a low-cost, but still viable webhoster of choice. I am used it for every web project I did in the last couple of years and I love the easiness of creating and disposing new Droplets, as they call their Virtual Machines.</p>
+<p>This guide is using <a href="https://m.do.co/c/ea9292afc8cc">Digital Ocean</a> as a low-cost, but still viable webhoster of choice. I am used it for every web project I did in the last couple of years and I love the easiness of creating and disposing new Droplets, as they call their Virtual Machines.</p>
 <p>If you are already using a different hoster, the described procedure should be easy enough for you to adjust.
 <b>Please note: </b> If you are using the link above to sign up, you will get 100$ in "try me"-money. If you spend 25$ of your own money some time later, I will get that 25$, too. If you think that this is fishy, then please just <a href="https://www.digitalocean.com/">go to their website</a> and check them out without the referral link.</p>
 </div>
@@ -24,7 +24,7 @@ tags:
 
 Jitsi installs fine on a very small droplet, I am using the smallest one that suits my needs perfectly. This might depend on the size of your group, but you can increase the droplet size later on very easily in case you really need a better performing CPU or more RAM, down-sizing is (I think) not that simple.
 
-The [most tiny droplet](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb) is still good enough for one role-playing group of friends. You could choose a number bigger to run Foundry alongside it, but I think even both software product will run fine on the smallest droplet if your average group size does not exceed four or five people - tell me with how many users you are running that combo and I will adjust that with a recommendation based on real-world usage. 
+The [most tiny droplet](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb) is still good enough for one role-playing group of friends. You could choose a number bigger to run Foundry alongside it, but I think even both software product will run fine on the smallest droplet if your average group size does not exceed four or five people - tell me with how many users you are running that combo and I will adjust that with a recommendation based on real-world usage.
 
 All you need to do is to choose a datacenter region that is located near you in order to reduce latency and therefore audio/video quality later on. I am using Frankfurt, but you will probably use another datacenter location.
 
@@ -253,7 +253,7 @@ Jitsi is installed, but needs a little more configuration: Everyone can use your
 
 > Having a publicly available conference software is something that is greatly sought after in these days. Still, you might want to secure access to your family and closest friends. The great thing about Jitsi is that only the one creating the conference needs to be a registered user, and whenever a conference is created, everyone can connect to the publicly available URL - it is really a great software to use to keep in touch with your loved ones.
 
-The following steps are greatly reduced in complexity by the formidable scripting of  [Andrea Giacobino@noandrea](https://dev.to/noandrea) from his article [Self-hosted Jitsi server with authentication](https://dev.to/noandrea/self-hosted-jitsi-server-with-authentication-ie7). Please give him some love while you are there!
+The following steps are greatly reduced in complexity by the formidable scripting of [Andrea Giacobino@noandrea](https://dev.to/noandrea) from his article [Self-hosted Jitsi server with authentication](https://dev.to/noandrea/self-hosted-jitsi-server-with-authentication-ie7). Please give him some love while you are there!
 
 First, we will need to create a bash variable with our domain name we are using for Jitsi. Andrea uses that variable in the following three scripts, making the whole process dead simple. I am using voice.vttassets.com, please replace that with your own domain name you chose earlier:
 
@@ -307,9 +307,11 @@ service prosody restart
 **Please note:** The module is still in development and audio/video might not be perfect. It is currently in a proof-of-concept-state with an active developer, to take the availablility within Foundry with patience and goodwill.
 
 ### Download and Installation
+
 You can find the module on [Luvolondon's Github Repository](https://github.com/luvolondon/fvtt-module-jitsiwebrtc). Check the readme for information about the current state of development and every configuration detail that might be not known currently and which is therefore not part of this description. You will find the manifest link in the readme, too, so copy that and install this module like any other module, too.
 
 ### Configuration
+
 After you enabled the Jitsi WebRTC client in Game Settings / Manage Modules all there is to do is to configure the Custom server in Game Setttings / Configure Audio/Video (yes, it is using the regular configuration dialog, it is not in the Game Settings / Configure Settings / Module Settings you might have expected.
 
 Configure your Custom Server: Use the user you created before, the password has been blurred because it's **TotallySecret**
@@ -318,11 +320,11 @@ Configure your Custom Server: Use the user you created before, the password has 
 
 Select
 
-* **Choose Signalling Server:** Custom Server
-* **Signalling Server URL:** [YourDomain]
-* **Signalling Server Username:** [yourUser]@[YourDomain]
-* **Signalling Server Password:** The password you chose when creating your first user
-* **Relay Server Configuration:** Provided by Signalling Server
+- **Choose Signalling Server:** Custom Server
+- **Signalling Server URL:** [YourDomain]
+- **Signalling Server Username:** [yourUser]@[YourDomain]
+- **Signalling Server Password:** The password you chose when creating your first user
+- **Relay Server Configuration:** Provided by Signalling Server
 
 Finally, when you go to the "General" tab, you can enable Audio/Video and...
 

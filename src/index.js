@@ -15,7 +15,10 @@ const contentTypes = getDirectories(path.resolve(process.env.CONTENT_ROOT)).map(
 );
 
 const processContentTypes = (contentTypes) => {
-  console.log("ContentTypes: " + contentTypes.map(contentType => contentType.type).join(', '));
+  console.log(
+    "ContentTypes: " +
+      contentTypes.map((contentType) => contentType.type).join(", ")
+  );
   let results = [];
 
   contentTypes.forEach((contentType) => {
@@ -35,7 +38,12 @@ const processContentTypes = (contentTypes) => {
         }
         return undefined;
       })
-      .filter((result) => result !== undefined);
+      .filter((result) => result !== undefined)
+      .map((result) => {
+        console.log(result.title + ": " + result.draft);
+        return result;
+      })
+      .filter((result) => result.draft === undefined || result.draft === false);
     results = results.concat(contents);
   });
   return results;
@@ -46,7 +54,7 @@ mongoose
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(async () => {
     console.log("Connected to MongoDB");

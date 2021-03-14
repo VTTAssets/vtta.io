@@ -13,28 +13,36 @@ tags:
 
 In order to not disrupt the current toolset, there's a new server, a new domain and a new toolchain in development that will make everything like... gorgeous and wonderful! Let's have a look at the features and where we stand:
 
-## Content: Articles, Dev Diaries, you name it: 100%
+![Current status of the migration to vtta.io](img/status-overview.jpg)
+
+- **Unavailable** - design phase, planned features
+- **Alpha** - transitioning from the design phase into an early proof-of-concept/ evaluation phase to finalize the design and prototype it for internal use
+- **Beta** - available to you to test-drive them
+- **Production** - used as the default building block in production
+- **Discontinued** - discontinued, unmaintained
+
+As you can see, I am running both pages in parallel. This ensures non-disruptive usability of the current toolset without me needing to worry to break these because of necessary changes. I will update this post regularly to let you know what is happening and create dev diary posts to explain any design decisions made.
+
+## Content
 
 You will find all new content only on vtta.io, vttassets.com will not receive any updates in that part. Indeed if you find any spelling errors or want to correct my weird english, you can do so: The content part of the webpage is [available on GitHub](https://github.com/VTTAssets/vtta.io). It's easy to write new articles, so if you have any interesting topic, give it a try! Just use the Jitsi article as a template, make sure you have a Gravatar assigned to your email and make a contribution!
 
-## Unlocking your Patreon benefits: 0%
+## FVTT Module Management
 
-In order to unlock your patreon features in the Chrome extension, you will still need to follow the steps [depicted here](https://www.vttassets.com/chrome-extension) on vttassets.com: This hasn't changed at all. 
+New releases of the modules will be made available on both sites simultaneously. The assets shown on vtta.io are not downloadable and are lacking descriptions
 
-But I still invite you to 
+## User Management
 
-- Log into vtta.io
-- Connect your Patreon account 
-- Connect your Discord account
+Since the Chrome extension that is currently in production uses the user information from vttassets.com, you will still need to follow the steps [depicted here](https://www.vttassets.com/chrome-extension) in order to unlock your Patreon mode. Please feel free to register at vtta.io and connect/ disconnect your accounts to ensure that everything is working correctly here. Patreon status is updated to both sides, therefore any feedback regarding these features on vtta.io is appreciated.
 
-in order to prepare for the migration in the future and to help me to confirm that these basic and necessary functions do work correctly. You can only test these things so much with three Google test accounts... so it's appreciated!
+## Utilities
 
-> You will be informed by Patreon post when the countdown to migrate starts. You will have plenty of time to create the necessary accounts here and to download the new Chrome extension
+Both the Chrome extension and the API are running still running on vttassets.com. The new extension is currently in development and will enter beta in due time.
 
-## New Chrome extension: 0%
+## Importing
 
-Instead of re-using the Chrome extension and Webstore entry, I will develop a brand-new Chrome extension that will work only with vtta.io. This makes it a tad easier for me, too, as we can test the new features and way to import your data into Foundry without cutting of the old way. Once on the webstore, you will find the link to the extension here, as it will not be publicly available while in beta in order to avoid confusions. **Right now, use the old Chrome extension to import your content!**
+Closely related to the Chrome extension and the API, these features will enter beta alongside those components. Right now, I am working on the monster parser and the whole process of versioning the monster parses, depicting updateable imports for you and refining the design of the general import mechanisms.
 
-# So much 0%. Get cracking, lazy bum!
+# Get cracking, lazy bum!
 *"I can do that. Work, work."*
 
