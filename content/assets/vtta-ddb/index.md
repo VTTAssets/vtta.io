@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: VTTA D&D Beyond Integration
 intro: Are you an avid user of both D&D Beyond and Foundry VTT? Do you want to seamlessly integrate both tools into your regular DMing workflows? "VTTA.io - D&D Beyond Integration" helps you to achieve that goal.
 author:
@@ -43,12 +43,23 @@ Instead of parsing the data directly in the extension, the HTML is submitted to 
 
 ## Features
 
-- **Individual imports: Monsters, spells and items** - Consistent UI elements within monster, spell and item blocks allows you to quickly import each entities individually. Additionally, since all those entities are now subject to versioning by the server-side parser, any **outdated entities present in your Foundry VTT server will be detected and updated automatically** for you. You simply browse D&D Beyond while being connected to Foundry VTT and the tools will ensure you are getting updates along the way.
-- **Batch imports: Monsters, spells and items** of those entities are possible, now, too. You will find an unobstrusive button on all listings of those entities. \*\*Want to import all monsters of size huge and CR5 and up? Just use the amazing filters by D&D Beyond and import the resulting list with vtta-ddb.
-- **Automated token generation** - an installed and enabled vtta-tokens will detect imported monsters and will auto-generate a token image for you. The necessary images are downloaded to your Foundry VTT server, too.
-- **Source book import made easy** - With server-side parsing and manually crafted processing instruction specific to each sourcebook, the parser will know which pages to traverse in order to achieve a great, complete import of great quality: With the automated batch import, all entities required to run your adventure will be imported **and back-referenced to D&D Beyond**: All monsters, items, tables and scenes detected in the adventure will be available in your world.
-  - Tables with reasonable names? **Check!**
-  - Linked Foundry VTT entities within the Journal Entries? **Check, and with links back to the original D&D Beyond page, too!**
-  -
+- **Individual imports: Monsters, spells and items** - Consistently designed and unobstrusive UI elements are inserted in all monster-, spell- and item (stat) blocks - everyone on dndbeyond.com: Detail pages, (filtered) listings, encounter builder: Import what you need where you find it.
+- **Versioned entities** When the parser improves it will be run against all known monsters, spells and items locally on my development environment. Chances are that one fix for a monster affects others, still undetected discrepancies on other monsters. All affected monsters will be examined closely, and only good changes will result in an parser update, effectively increasing the version number for each affected monster by one.
 
-### Footnotes
+  Having a version assigned to them, the tools will now detect **outdated entities present in your Foundry VTT server and update them automatically** for you. Just use the tools, Foundry VTT and D&D Beyond and VTTA got you covered to keep you updated for you.
+
+- **Batch imports: Monsters, spells and items** can now be imported in batch. Simply browse to a listing page, filter to your likeing and start the batch import. If the listing consists of multiple pages, they will all traverse until every entity is imported in your game.
+- **Automated token generation** - an installed and enabled [https://www.vtta.io/assets/vtta-tokens](vtta-tokens) will detect imported monsters and will auto-generate a token image for you. **Note:** All efforts to implement a fancy AI-driven solution to extract the most relevant section of the monster artwork were in vain. Therefore, the results might require manual adjustments, but it's a good start.
+- **Source book import made easy** - With server-side parsing and manually crafted processing instruction specific to each sourcebook, the parser will know which pages to traverse in order to achieve a great, concise import of great quality: With the automated batch import, all entities required to run your adventure will be detected, parsed and imported into in your world.
+  - Structured Journal Entries based on the source/adventure book content? **Check!**
+  - Rolltables now having recognizable names? **Check!**
+  - Correct scene labels with 100% consistency between Journal Entry text and actually displayed Labels? **Check!**
+  - Cross- and back-referenced links within the Journal Entries? **Of course!** it is called **Integration** for a reason
+
+There are so many details included in the tools that I could go on and on. I used the features I really liked about the first iteration, e.g. being able to quickly show my players an image displayed in a Journal Entry, and added other great additions to the mix like having a link to a RollTable within the Journal Entry and now including the possibility to directly roll from the Journal Entry without opening the RollTable itself. Those small quality of life improvements make the whole tool-suite appear really polished and like a **grown-up version** of the first iteration of tools.
+
+# Introduction
+
+The module requires the Google Chrome extension in order to received the data from D&D Beyond. Please download and add it from the [Google Webstore](https://chrome.google.com/webstore/detail/vttaio-dd-beyond-integrat/jkcgfhmpepgnjkjhgkfbengiopmbbhjj). After adding it to your Chrome Browser, it allows you connect to your Foundry VTT server by
+
+Follow the in-game tutorial to learn how to connect the extension to Foundry and to import your first monster. I will update the documentation to be more thorough in the next couple of days. Thank you for your patience!

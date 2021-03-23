@@ -22,6 +22,8 @@ module.exports = (contentType, slug, filename) => {
     encoding: "utf8",
   });
 
+  console.log("Filename: " + filename);
+  console.log(input);
   const hash = crypto.createHash("md5").update(input).digest("hex");
   // initialize the markdown renderer
   const renderer = new marked.Renderer();
