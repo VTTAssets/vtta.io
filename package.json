@@ -1,6 +1,6 @@
 {
   "name": "vtta.io",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Content repository for vtta.io",
   "main": "src/index.js",
   "repository": "https://github.com/VTTAssets/vtta.io.git",
